@@ -1,0 +1,259 @@
+#include <iostream> // 1
+
+int main() {
+    int a, b, c;
+    std::cout << "Введите стороны треугольника (a, b, c): ";
+    std::cin >> a >> b >> c;
+
+    if (a + b > c && a + c > b && b + c > a) {
+        std::cout << "Это треугольник." << std::endl;
+        if (a == b && b == c) {
+            std::cout << "Тип: равносторонний." << std::endl;
+        } else if (a == b || b == c || a == c) {
+            std::cout << "Тип: равнобедренный." << std::endl;
+        } else {
+            std::cout << "Тип: разносторонний." << std::endl;
+        }
+    } else {
+        std::cout << "Это не треугольник." << std::endl;
+    }
+    return 0;
+}
+
+#include <iostream> //2
+#include <cmath>
+
+int main() {
+    int a, b, c;
+    std::cout << "Введите стороны треугольника (a, b, c): ";
+    std::cin >> a >> b >> c;
+
+    if (a + b > c && a + c > b && b + c > a) {
+        int a2 = a * a, b2 = b * b, c2 = c * c;
+        if (a2 + b2 > c2 && a2 + c2 > b2 && b2 + c2 > a2) {
+            std::cout << "Остроугольный треугольник." << std::endl;
+        } else if (a2 + b2 == c2 || a2 + c2 == b2 || b2 + c2 == a2) {
+            std::cout << "Прямоугольный треугольник." << std::endl;
+        } else {
+            std::cout << "Тупоугольный треугольник." << std::endl;
+        }
+    } else {
+        std::cout << "Это не треугольник." << std::endl;
+    }
+    return 0;
+}
+
+#include <iostream> //3
+#include <cmath>
+
+int main() {
+    double xa, ya, xb, yb, xc, yc;
+    std::cout << "Введите координаты A(xa, ya), B(xb, yb), C(xc, yc): ";
+    std::cin >> xa >> ya >> xb >> yb >> xc >> yc;
+
+    double a = sqrt(pow(xb - xc, 2) + pow(yb - yc, 2));
+    double b = sqrt(pow(xa - xc, 2) + pow(ya - yc, 2));
+    double c = sqrt(pow(xa - xb, 2) + pow(ya - yb, 2));
+
+    if (a + b > c && a + c > b && b + c > a) {
+        double a2 = a * a, b2 = b * b, c2 = c * c;
+        if (a2 + b2 > c2 && a2 + c2 > b2 && b2 + c2 > a2) {
+            std::cout << "Остроугольный треугольник." << std::endl;
+        } else if (a2 + b2 == c2 || a2 + c2 == b2 || b2 + c2 == a2) {
+            std::cout << "Прямоугольный треугольник." << std::endl;
+        } else {
+            std::cout << "Тупоугольный треугольник." << std::endl;
+        }
+    } else {
+        std::cout << "Это не треугольник." << std::endl;
+    }
+    return 0;
+}
+
+#include <iostream> //4
+
+int main() {
+    int a, b, c;
+    std::cout << "Введите стороны треугольника (a, b, c): ";
+    std::cin >> a >> b >> c;
+
+    bool isTriangle = false;
+
+    for (int x = 1; x < a; x++) {
+        for (int y = 1; y < b; y++) {
+            int z = a - x - y;
+            if (z > 0 && y + z == b && x + z == c) {
+                isTriangle = true;
+                break;
+            }
+        }
+        if (isTriangle) break;
+    }
+
+    if (isTriangle) {
+        std::cout << "Числа могут быть сторонами треугольника." << std::endl;
+    } else {
+        std::cout << "Числа не могут быть сторонами треугольника." << std::endl;
+    }
+
+    return 0;
+}
+
+#include <iostream> //5
+#include <cmath>
+
+double distance(double x1, double y1, double x2, double y2) {
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
+int main() {
+    double xa, ya, xb, yb, xc, yc, xd, yd;
+    std::cout << "Введите координаты A(xa, ya), B(xb, yb), C(xc, yc), D(xd, yd): ";
+    std::cin >> xa >> ya >> xb >> yb >> xc >> yc >> xd >> yd;
+
+    double AB = distance(xa, ya, xb, yb);
+    double BC = distance(xb, yb, xc, yc);
+    double CD = distance(xc, yc, xd, yd);
+    double DA = distance(xd, yd, xa, ya);
+    double AC = distance(xa, ya, xc, yc);
+    double BD = distance(xb, yb, xd, yd);
+
+    if (AB == CD && BC == DA) {
+        if (AB == BC) {
+            std::cout << "Это квадрат." << std::endl;
+        } else {
+            std::cout << "Это прямоугольник." << std::endl;
+        }
+    } else if (AB == CD || BC == DA) {
+        std::cout << "Это параллелограмм." << std::endl;
+    } else {
+        std::cout << "Это произвольный четырехугольник." << std::endl;
+    }
+
+    return 0;
+}
+
+#include <iostream> //6
+#include <algorithm>
+
+int main() {
+    double a, b, c, r, s;
+    std::cout << "Введите размеры кирпича (a, b, c): ";
+    std::cin >> a >> b >> c;
+    std::cout << "Введите размеры отверстия (r, s): ";
+    std::cin >> r >> s;
+
+    double brick[3] = {a, b, c};
+    double hole[2] = {r, s};
+    std::sort(brick, brick + 3);
+    std::sort(hole, hole + 2);
+
+    if (brick[0] <= hole[0] && brick[1] <= hole[1]) {
+        std::cout << "Кирпич пройдет через отверстие." << std::endl;
+    } else {
+        std::cout << "Кирпич не пройдет через отверстие." << std::endl;
+    }
+
+    return 0;
+}
+
+#include <iostream> //7
+#include <algorithm>
+
+int main() {
+    double r, p, q;
+    std::cout << "Введите радиус шара (r): ";
+    std::cin >> r;
+    std::cout << "Введите диагонали ромба (p, q): ";
+    std::cin >> p >> q;
+
+    double semiMajor = p / 2;
+    double semiMinor = q / 2;
+
+    if (r <= std::min(semiMajor, semiMinor)) {
+        std::cout << "Шар пройдет через ромбообразное отверстие." << std::endl;
+    } else {
+        std::cout << "Шар не пройдет через ромбообразное отверстие." << std::endl;
+    }
+
+    return 0;
+}
+
+#include <iostream> //8
+#include <algorithm>
+
+int main() {
+    double A, B, C, R, S, T;
+    std::cout << "Введите размеры коробки (A, B, C): ";
+    std::cin >> A >> B >> C;
+    std::cout << "Введите размеры посылки (R, S, T): ";
+    std::cin >> R >> S >> T;
+
+    double box[3] = {A, B, C};
+    double package[3] = {R, S, T};
+    std::sort(box, box + 3);
+    std::sort(package, package + 3);
+
+    if (package[0] <= box[0] && package[1] <= box[1] && package[2] <= box[2]) {
+        std::cout << "Посылка поместится в коробку." << std::endl;
+    } else {
+        std::cout << "Посылка не поместится в коробку." << std::endl;
+    }
+
+    return 0;
+}
+
+#include <iostream> //9
+
+int main() {
+    int k, l, m;
+    std::cout << "Введите три целых числа (k, l, m): ";
+    std::cin >> k >> l >> m;
+
+    std::cout << "Пары кратных:" << std::endl;
+
+    if (k % l == 0) {
+        std::cout << k << " кратно " << l << std::endl;
+    }
+    if (k % m == 0) {
+        std::cout << k << " кратно " << m << std::endl;
+    }
+    if (l % k == 0) {
+        std::cout << l << " кратно " << k << std::endl;
+    }
+    if (l % m == 0) {
+        std::cout << l << " кратно " << m << std::endl;
+    }
+    if (m % k == 0) {
+        std::cout << m << " кратно " << k << std::endl;
+    }
+    if (m % l == 0) {
+        std::cout << m << " кратно " << l << std::endl;
+    }
+
+    return 0;
+}
+
+#include <iostream> //10
+
+int main() {
+    int number;
+    std::cout << "Введите трехзначное число: ";
+    std::cin >> number;
+
+    int sum = 0;
+    int temp = number;
+
+    while (temp > 0) {
+        sum += temp % 10;
+        temp /= 10;
+    }
+
+    if (sum % 3 == 0) {
+        std::cout << number << " делится на 3." << std::endl;
+    } else {
+        std::cout << number << " не делится на 3." << std::endl;
+    }
+
+    return 0;
+}
